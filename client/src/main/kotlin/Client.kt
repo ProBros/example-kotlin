@@ -1,4 +1,5 @@
 import parser.Route
+import util.readLine
 import util.readWholeLine
 import java.net.Socket
 
@@ -15,7 +16,7 @@ class Client(val clientSocket: Socket) : Runnable{
                 // created this method readWholeLine(InputStream), it returns the proper string but the outputstreams don't work after it executes,
                 // I think that it doesn't clean "buf" field of the output stream, I tried flushing it, closing it, resetting it but it didn't help :(
                 //val inLine = Route(readWholeLine(it)).parseRoute()
-
+                //val inLine = Route(it.readLine()).parseRoute()
                 APIGateway.instance.makeResponse(inLine, clientSocket.outputStream)
             }
         } catch (e : Exception) {

@@ -57,3 +57,26 @@ fun readWholeLine(inputStream: InputStream): String {
     return result
 
 }
+
+fun InputStream.readLine() : String {
+    var byteArrayOutputStream = ByteArrayOutputStream()
+    var char = read()
+    var isCR = false
+    while (char != '\n'.toInt() && char != -1) {
+        if (isCR) {
+            isCR = false
+            byteArrayOutputStream.write('\r'.toInt())
+        }
+        if (char == '\r'.toInt()) {
+            isCR = true
+        } else {
+            byteArrayOutputStream.write(char)
+        }
+        char = read()
+    }
+    val result = byteArrayOutputStream.toString("UTF-8")
+    //byteArrayOutputStream.flush()
+    //byteArrayOutputStream.close()
+    //byteArrayOutputStream.reset()
+    return result
+}

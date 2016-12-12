@@ -2,7 +2,6 @@ package resp_handlers
 
 import ReqHandler
 import data.ProfileData
-import util.createHTTPHeader
 import java.io.OutputStream
 
 /**
@@ -11,15 +10,14 @@ import java.io.OutputStream
 class ProfileHandler : ReqHandler {
     override fun handleRequest(output: OutputStream) {
 
-        output.use {
+        output.writer(Charsets.UTF_8).use {
             try {
-                val header = createHTTPHeader(200)
-                val writer = it.writer()
-                writer.write(header)
-                writer.flush()
+                val header = createHeader(200)
+                it.write(header)
+                it.flush()
                 val profilePageData = ProfileData(false)
-                writer.write(profilePageData.getData().toString())
-                writer.flush()
+                it.write(profilePageData.getData().toString())
+                it.flush()
             } catch (e: Exception) {
                 println("Profile")
             }

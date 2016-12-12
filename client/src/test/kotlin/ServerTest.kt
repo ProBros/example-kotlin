@@ -1,7 +1,3 @@
-package test
-
-import main
-import Client
 import org.junit.Assert.assertEquals
 import org.junit.BeforeClass
 import org.junit.Test
